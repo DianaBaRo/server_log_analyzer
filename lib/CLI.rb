@@ -11,6 +11,8 @@ class CLI
     menu
     goodbye
   end
+
+private
   
   def menu
     make_log_entries
@@ -33,6 +35,8 @@ class CLI
       case input
       when "most"
         display_most_page_views
+      when "average"
+        display_average_page_views
       when "unique"
         display_most_unique_page_views
       else
@@ -46,6 +50,15 @@ class CLI
       log_entry_array = LogFile.log_entries(@file)
       LogEntry.create_from_collection(log_entry_array)
     end
+  end
+
+  def display_average_page_views
+
+    text =""
+    LogFile.average_page_views.each do  |key,value| 
+      text += "#{key} #{value} visits \n".colorize(:blue)
+    end
+    puts text
   end
 
   def display_most_page_views

@@ -26,4 +26,10 @@ class LogFile
     visits_by_web_page.map { |key, value| [key, value.map(&:ip_address).uniq.count] }.
     sort { |a, b| b.last <=> a.last }
   end
+
+  def self.average_page_views
+    # total page views / unique page views
+    visits_by_web_page.map { |web_page, visits| [web_page, visits.count / visits.map(&:ip_address).uniq.count] }.
+    sort { |a, b| b.last <=> a.last }
+  end
 end
